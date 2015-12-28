@@ -28,8 +28,13 @@ set history=256
 set pastetoggle=<F3>
 
 "Super paste
-inoremap <C-v> <esc>:set paste<cr>mui<C-R>+<esc>mv'uV'v=:set nopaste<cr>
-"nmap <C-c> :"*y
+"inoremap <C-v> <esc>:set paste<cr>mui<C-R>+<esc>mv'uV'v=:set nopaste<cr>
+"make all yanking/deleting operations automaticlly copy to the system clipboard.
+"set clipboard=unnamedplus
+vmap <C-c> "+y
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+p
 
 "Enable filetype plugin
 filetype plugin on
