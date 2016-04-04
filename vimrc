@@ -556,11 +556,18 @@ nmap <silent> <leader>tt :NERDTreeToggle<cr>
 """"""""""""""""""""""""""""""
 " A.vim  setting
 """"""""""""""""""""""""""""""
-let g:alternateExtensions_cc  = "inc,h,hh,H,hpp,HPP"
-let g:alternateExtensions_c   = "inc,h,hh,H,hpp,HPP"
-let g:alternateExtensions_cpp = "inc,h,hh,H,hpp,HPP"
-let g:alternateExtensions_hh  = "cc,cpp,cxx,c"
-let g:alternateExtensions_hpp = "cc,cpp,cxx,c"
+let g:alternateExtensions_h = "c,cpp,cxx,cc,CC"
+let g:alternateExtensions_hh = "cc,cpp,cxx,c"
+let g:alternateExtensions_H = "C,CPP,CXX,CC"
+let g:alternateExtensions_hpp = "cxx,cpp,cc,c"
+let g:alternateExtensions_cpp = "h,hpp,hh"
+let g:alternateExtensions_CPP = "H,HPP"
+let g:alternateExtensions_c = "h"
+let g:alternateExtensions_C = "H"
+let g:alternateExtensions_cc  = "hh,HH,h,H,hpp,HPP"
+let g:alternateExtensions_cxx = "hpp,h,hh,hPP,H"
+
+let g:alternateSearchPath = 'sfr:impl,sfr:../src,sfr:../inc,sfr:../include'
 
 """""""""""""""""""""""""""""""
 " Yank Ring setting
@@ -746,4 +753,4 @@ colorscheme solarized
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vimrc_loaded = 1
 
-
+let g:pyclewn_terminal = "xterm, -e"
