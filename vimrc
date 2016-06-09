@@ -516,6 +516,9 @@ Plugin 'hynek/vim-python-pep8-indent'
 
 Plugin 'altercation/vim-colors-solarized'
 
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required by Vundle
@@ -605,6 +608,18 @@ nmap <leader>dgl :DoxLic<cr>
 set background=dark
 let g:solarized_termtrans=1
 colorscheme solarized
+
+""""""""""""""""""""""""""""""""
+" vim sesstions
+""""""""""""""""""""""""""""""""
+" Don't save hidden and unloaded buffers in sessions.
+set sessionoptions-=buffers
+let g:session_autoload='no'
+let g:session_autosave='prompt'
+let g:session_autosave_periodic=3
+"let g:session_autosave_silent=1
+nmap <leader>ss :SaveSession<cr>
+nmap <leader>so :OpenSession<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle and plugins configuration END
