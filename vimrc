@@ -17,6 +17,9 @@
 " * Get out of VI's compatible mode (required by Vundle)
 set nocompatible        
 
+" * Syntax on
+syntax on
+
 " * Set mapleader
 let mapleader = ","
 let g:mapleader = ","
@@ -193,6 +196,8 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 
+Plugin 'vim-syntastic/syntastic'
+
 Plugin 'msanders/snipmate.vim'
 "Plugin 'SirVer/ultisnips'
 
@@ -242,11 +247,25 @@ let g:ycm_open_loclist_on_ycm_diags = 1
 " disable <TAB> select next item in the pop-up window
 let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<UP>']
+" setup for python
+let g:ycm_python_binary_path = 'python'
 
 nnoremap <leader>gf :YcmCompleter GoToDefination<CR>
 nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gg :YcmCompleter GoTo<CR>
 nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
+
+""""""""""""""""""""""""""""""
+" syntastic setting
+""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 """"""""""""""""""""""""""""""
 " SnipMate
