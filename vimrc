@@ -13,9 +13,9 @@
 " Could be overwritten by plugins
 "
 " - General settings
-" 
+"
 " * Get out of VI's compatible mode (required by Vundle)
-set nocompatible        
+set nocompatible
 
 " * Syntax on
 syntax on
@@ -72,10 +72,10 @@ set noswapfile
 set shiftwidth=4
 
 " * replace tab to spaces
-set expandtab           
+set expandtab
 
 " * in front of a line inserts blanks accordinng to 'shiftwidth'
-set smarttab            
+set smarttab
 
 " - Indent options
 " * Auto indent
@@ -94,19 +94,20 @@ set wrap
 set ffs=unix,dos
 
 " - File type options
-autocmd FileType python setlocal foldmethod=indent cinwords=if,elif,else,for,while,try,except,finally,def,class
+"autocmd FileType python setlocal foldmethod=indent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd FileType python map <leader>= :0,$!yapf<CR>
 autocmd FileType html,vim,javascript,xml setlocal shiftwidth=2
 autocmd FileType txt setlocal lbr
 autocmd FileType txt setlocal tw=78
 
-" * VIM 
+" * VIM
 autocmd FileType vim set nofen
 autocmd FileType vim map <buffer> <leader><space> :w!<cr>:source %<cr>
 
 " * C/C++
 autocmd FileType c,cc,cpp,xml  map <buffer> <leader><space> :make<cr>
 
-" * HTML 
+" * HTML
 "   HTML entities - used by xml edit plugin
 let xml_use_xhtml = 1
 "let xml_no_auto_nesting = 1
@@ -157,28 +158,28 @@ endfunction
 " - multi-encoding setting
 " * Chinese
 if has("multi_byte")
-  "set bomb 
-  set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,sjis,euc-kr,ucs-2le,latin1 
-  " CJK environment detection and corresponding setting 
-  if v:lang =~ "^zh_CN" 
-    " Use cp936 to support GBK, euc-cn == gb2312 
-    set encoding=chinese 
-    set termencoding=chinese 
-    set fileencoding=chinese 
-  elseif v:lang =~ "^zh_TW" 
-    " cp950, big5 or euc-tw 
-    " Are they equal to each other? 
-    set encoding=taiwan 
-    set termencoding=taiwan 
-    set fileencoding=taiwan 
-  endif 
-  " Detect UTF-8 locale, and replace CJK setting if needed 
-  if v:lang =~ "utf8$" || v:lang =~ "UTF-8$" 
-    set encoding=utf-8 
-    set termencoding=utf-8 
-    set fileencoding=utf-8 
-  endif 
-endif 
+  "set bomb
+  set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,sjis,euc-kr,ucs-2le,latin1
+  " CJK environment detection and corresponding setting
+  if v:lang =~ "^zh_CN"
+    " Use cp936 to support GBK, euc-cn == gb2312
+    set encoding=chinese
+    set termencoding=chinese
+    set fileencoding=chinese
+  elseif v:lang =~ "^zh_TW"
+    " cp950, big5 or euc-tw
+    " Are they equal to each other?
+    set encoding=taiwan
+    set termencoding=taiwan
+    set fileencoding=taiwan
+  endif
+  " Detect UTF-8 locale, and replace CJK setting if needed
+  if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+    set encoding=utf-8
+    set termencoding=utf-8
+    set fileencoding=utf-8
+  endif
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle and plugins configuration BEGIN
@@ -192,11 +193,11 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 
-Plugin 'vim-syntastic/syntastic'
+"Plugin 'vim-syntastic/syntastic'
 
 Plugin 'msanders/snipmate.vim'
 "Plugin 'SirVer/ultisnips'
@@ -213,13 +214,18 @@ Plugin 'vim-scripts/DoxygenToolkit.vim'
 
 Plugin 'hynek/vim-python-pep8-indent'
 
-" vim-airline: a fancy statu bar 
+" vim-airline: a fancy statu bar
 "Plugin 'bling/vim-airline'
 
 Plugin 'altercation/vim-colors-solarized'
 
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
+
+"Plugin 'joonty/vdebug'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'idanarye/vim-vebugger'
+
 
 
 " All of your Plugins must be added before the following line
@@ -237,9 +243,9 @@ filetype indent on
 let g:ycm_error_symbol='>>'
 let g:ycm_warning_symbol='>*'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_seed_identifiers_with_syntax = 1 
+let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_cache_omnifunc = 0 
+let g:ycm_cache_omnifunc = 0
 let g:ycm_complete_in_comments = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_always_populate_location_list = 1
@@ -258,14 +264,14 @@ nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
 """"""""""""""""""""""""""""""
 " syntastic setting
 """"""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 
 """"""""""""""""""""""""""""""
 " SnipMate
@@ -315,7 +321,7 @@ map <leader>yr :YRShow<cr>
 """"""""""""""""""""""""""""""
 "let g:DoxygenToolkit_commentType = "C++"
 " author info
-"g:DoxygenToolkit_authorName = 'Gao Mingyue, mingyue.gao@vires.com'
+let g:DoxygenToolkit_authorName = 'AAI GmbH'
 nmap <leader>dg :Dox<cr>
 nmap <leader>dga :DoxAuthor<cr>
 " license announcement
@@ -353,12 +359,18 @@ let g:session_autosave_periodic=3
 nmap <leader>ss :SaveSession<cr>
 nmap <leader>so :OpenSession<cr>
 
+"""""""""""""""""""""""""""""""
+" vebugger settings
+""""""""""""""""""""""""""""""
+let g:vebugger_leader='<Leader>d'
+let g:vebugger_path_python='python'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle and plugins configuration END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom settings 
+" Custom settings
 " Overwrite those set up by Plugins
 "
 " - Remaps
@@ -555,7 +567,7 @@ nmap <silent> <leader>lv :lv /<c-r>=expand("<cword>")<cr>/ %<cr>:lw<cr>
 vmap <silent> <leader>lv :lv /<c-r>=<sid>GetVisualSelection()<cr>/ %<cr>:lw<cr>
 
 " * Fast diff
-"cmap @vd vertical diffsplit 
+"cmap @vd vertical diffsplit
 "set diffopt+=vertical
 
 " * Remove the Windows ^M
