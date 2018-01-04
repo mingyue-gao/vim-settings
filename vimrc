@@ -181,6 +181,8 @@ if has("multi_byte")
   endif
 endif
 
+set encoding=utf-8
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle and plugins configuration BEGIN
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -200,7 +202,6 @@ Plugin 'Valloric/YouCompleteMe'
 "Plugin 'vim-syntastic/syntastic'
 
 Plugin 'msanders/snipmate.vim'
-"Plugin 'SirVer/ultisnips'
 
 Plugin 'vim-scripts/a.vim'
 
@@ -254,7 +255,7 @@ let g:ycm_open_loclist_on_ycm_diags = 1
 let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<UP>']
 " setup for python
-let g:ycm_python_binary_path = 'python'
+let g:ycm_python_binary_path = '/home/moon/anaconda3/envs/py35/bin/python'
 
 nnoremap <leader>gf :YcmCompleter GoToDefination<CR>
 nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
@@ -270,8 +271,9 @@ nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
 "
 "let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_open = 0
 "let g:syntastic_check_on_wq = 0
+"let g:syntastic_quiet_messages = { 'regex': 'missing-docstring\|line-too-long\|invalid-name' }
 
 """"""""""""""""""""""""""""""
 " SnipMate
@@ -407,17 +409,17 @@ nmap <silent> <leader>qa :qa<cr>
 nmap <silent> <leader><cr> :noh<cr>
 
 " * Some nice mapping to switch syntax (useful if one mixes different languages in one file)
-map <leader>1 :set syntax=c<cr>
-map <leader>2 :set syntax=xhtml<cr>
-map <leader>3 :set syntax=python<cr>
-map <leader>4 :set ft=javascript<cr>
-map <leader>$ :syntax sync fromstart<cr>
+"map <leader>1 :set syntax=c<cr>
+"map <leader>2 :set syntax=xhtml<cr>
+"map <leader>3 :set syntax=python<cr>
+"map <leader>4 :set ft=javascript<cr>
+"map <leader>$ :syntax sync fromstart<cr>
 
 autocmd BufEnter * :syntax sync fromstart
 
 " *  Fileformats
-nmap <leader>fd :se ff=dos<cr>
-nmap <leader>fu :se ff=unix<cr>
+"nmap <leader>fd :se ff=dos<cr>
+"nmap <leader>fu :se ff=unix<cr>
 
 " - Visual
 " * From an idea by Michael Naumann
