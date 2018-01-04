@@ -199,7 +199,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 
-"Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-syntastic/syntastic'
 
 Plugin 'msanders/snipmate.vim'
 
@@ -265,30 +265,21 @@ nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
 """"""""""""""""""""""""""""""
 " syntastic setting
 """"""""""""""""""""""""""""""
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 "let g:syntastic_always_populate_loc_list = 1
 "let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_quiet_messages = { 'regex': 'missing-docstring\|line-too-long\|invalid-name' }
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_quiet_messages = { 'regex': 'missing-docstring\|line-too-long\|invalid-name' }
 
 """"""""""""""""""""""""""""""
 " SnipMate
 """"""""""""""""""""""""""""""
 let g:snips_author = 'Mingyue Gao'
 let g:snippets_dir = '~/.vim/mydata/snipmate'
-
-""""""""""""""""""""""""""""""
-" UltiSnips
-""""""""""""""""""""""""""""""
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-""let g:UltiSnipsEditSplit="vertical"
-"let g:UltiSnipsSnippetsDir="~/.vim/mydata/ultisnips"
 
 """"""""""""""""""""""""""""""
 " NERDTree setting
@@ -319,7 +310,7 @@ let g:yankring_history_file='.yankring_history_file'
 map <leader>yr :YRShow<cr>
 
 """""""""""""""""""""""""""""""
-" Yank Ring setting
+" DoxygenToolkit
 """"""""""""""""""""""""""""""
 "let g:DoxygenToolkit_commentType = "C++"
 " author info
@@ -399,7 +390,7 @@ nmap <leader>sc :source ~/.vimrc<cr>
 nmap <silent> <leader>ww :w<cr>
 nmap <silent> <leader>wf :w!<cr>
 
-"* Fast quiting
+" * Fast quiting
 nmap <silent> <leader>qw :wq<cr>
 nmap <silent> <leader>qf :q!<cr>
 nmap <silent> <leader>qq :q<cr>
@@ -407,13 +398,6 @@ nmap <silent> <leader>qa :qa<cr>
 
 "* Fast remove highlight search
 nmap <silent> <leader><cr> :noh<cr>
-
-" * Some nice mapping to switch syntax (useful if one mixes different languages in one file)
-"map <leader>1 :set syntax=c<cr>
-"map <leader>2 :set syntax=xhtml<cr>
-"map <leader>3 :set syntax=python<cr>
-"map <leader>4 :set ft=javascript<cr>
-"map <leader>$ :syntax sync fromstart<cr>
 
 autocmd BufEnter * :syntax sync fromstart
 
@@ -508,12 +492,12 @@ cnoremap <C-B>    <Left>
 
 " - Buffer realted
 " * Open a dummy buffer for paste
-map <leader>es :tabnew<cr>:setl buftype=nofile<cr>
-if MySys() == "linux"
-map <leader>ec :tabnew /tmp/scratch.txt<cr>
-else
-map <leader>ec :tabnew $TEMP/scratch.txt<cr>
-endif
+"map <leader>es :tabnew<cr>:setl buftype=nofile<cr>
+"if MySys() == "linux"
+"map <leader>ec :tabnew /tmp/scratch.txt<cr>
+"else
+"map <leader>ec :tabnew $TEMP/scratch.txt<cr>
+"endif
 
 " * Restore cursor to file position in previous editing session
 set viminfo='10,\"100,:20,n~/.viminfo
@@ -541,8 +525,6 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
-" - Filetype generic
-
 " - MISC
 " * Quickfix
 nmap <leader>cn :cn<cr>
@@ -565,8 +547,8 @@ function! s:GetVisualSelection()
 endfunction
 
 " * Fast grep
-nmap <silent> <leader>lv :lv /<c-r>=expand("<cword>")<cr>/ %<cr>:lw<cr>
-vmap <silent> <leader>lv :lv /<c-r>=<sid>GetVisualSelection()<cr>/ %<cr>:lw<cr>
+"nmap <silent> <leader>lv :lv /<c-r>=expand("<cword>")<cr>/ %<cr>:lw<cr>
+"vmap <silent> <leader>lv :lv /<c-r>=<sid>GetVisualSelection()<cr>/ %<cr>:lw<cr>
 
 " * Fast diff
 "cmap @vd vertical diffsplit
