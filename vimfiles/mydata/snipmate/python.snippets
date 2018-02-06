@@ -5,11 +5,13 @@ snippet imp
 	import ${1:module}
 # Module Docstring
 snippet docs
-	'''
-	File: ${1:`Filename('$1.py', 'foo.py')`}
-	Author: ${2:`g:snips_author`}
-	Description: ${3}
-	'''
+	"""
+	${1:description}
+
+	@file: ${2:`Filename('$1.py', 'foo.py')`}
+	@author: ${3:`g:snips_author`}
+	@date: `system("date +%Y-%m-%d")`
+	"""
 snippet wh
 	while ${1:condition}:
 		${2:# code...}
@@ -40,14 +42,40 @@ snippet deff
 snippet defs
 	def ${1:mname}(self, ${2:arg}):
 		${3:pass}
+# New getter
+snippet getter
+	@property
+	def ${1:foo}(self):
+		"""
+		${2:docstring for $1}
+		"""
+		return self.__$1
+
+# New getter
+snippet setter
+	@${1:foo}.setter
+	def $1(self, value):
+		"""
+		${2:docstring for $1}
+		"""
+		self.__$1 = value
+
 # New Property
 snippet property
-	def ${1:foo}():
-		doc = "${2:The $1 property.}"
-		def fget(self):
-			${3:return self._$1}
-		def fset(self, value):
-			${4:self._$1 = value}
+	@property
+	def ${1:foo}(self):
+		"""
+		${2:docstring for $1}
+		"""
+		return self.__$1
+
+	@$1.setter
+	def $1(self, value):
+		"""
+		${2:docstring for $1}
+		"""
+		self.__$1 = value
+
 # Lambda
 snippet ld
 	${1:var} = lambda ${2:vars} : ${3:action}

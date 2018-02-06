@@ -120,31 +120,31 @@ autocmd FileType html set ft=xml
 autocmd FileType html set syntax=html
 
 " - How VIM looks
-" * Turn on WiLd menu
+" * Turn on WiLd menu for :find
 set wildmenu
 
-" * Always show current position
-set ruler
-
-" * The commandbar is 2 high
-set cmdheight=2
+" * Enable mouse in console
+set mouse=a
 
 " * Show line number
 set nu
 
-" * Do not redraw, when running macros.. lazyredraw
-set lz
+" * The commandbar is 2 high
+set cmdheight=2
 
 " * Always show the statusline
 set laststatus=2
 
-function! CurDir()
-  let curdir = substitute(getcwd(), '/home/moon/', "~/", "g")
-  return curdir
-endfunction
+" * Do not redraw, when running macros.. lazyredraw
+"set lz
+
+"function! CurDir()
+"  let curdir = substitute(getcwd(), '/home/moon/', "~/", "g")
+"  return curdir
+"endfunction
 
 " * Format the statusline
-set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L:%c
+"set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L:%c
 
 " - Platform
 function! MySys()
@@ -199,7 +199,12 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 
-Plugin 'vim-syntastic/syntastic'
+" vim-airline: a fancy statu bar
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+"Plugin 'vim-syntastic/syntastic'
+Plugin 'w0rp/ale'
 
 Plugin 'msanders/snipmate.vim'
 
@@ -213,10 +218,9 @@ Plugin 'vim-scripts/YankRing.vim'
 
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 
-Plugin 'hynek/vim-python-pep8-indent'
+"Plugin 'heavenshell/vim-pydocstring'
 
-" vim-airline: a fancy statu bar
-"Plugin 'bling/vim-airline'
+Plugin 'hynek/vim-python-pep8-indent'
 
 Plugin 'altercation/vim-colors-solarized'
 
@@ -227,6 +231,7 @@ Plugin 'xolox/vim-session'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'idanarye/vim-vebugger'
 
+Plugin 'JamshedVesuna/vim-markdown-preview'
 
 
 " All of your Plugins must be added before the following line
@@ -261,19 +266,44 @@ nnoremap <leader>gf :YcmCompleter GoToDefination<CR>
 nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gg :YcmCompleter GoTo<CR>
 nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
+nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
 
 """"""""""""""""""""""""""""""
 " syntastic setting
 """"""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+""let g:syntastic_always_populate_loc_list = 1
+""let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_quiet_messages = { 'regex': 'missing-docstring\|line-too-long\|invalid-name' }
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_quiet_messages = { 'regex': 'missing-docstring\|line-too-long\|invalid-name' }
+""""""""""""""""""""""""""""""
+" ale setting
+""""""""""""""""""""""""""""""
+let g:ale_linters = {
+\   'python': ['flake8', 'pylint'],
+\   'cpp': [],
+\}
+
+let g:ale_fixers = {
+\   'python': ['isort', 'autopep8', 'yapf'],
+\}
+
+"" Set this setting in vimrc if you want to fix files automatically on save.
+"" This is off by default.
+"let g:ale_fix_on_save = 0
+"let g:ale_set_quickfix = 1
+"let g:airline#extensions#ale#enabled = 1
+
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] [%severity%] %s'
+
+nnoremap <leader>ff :ALEFix<CR>
 
 """"""""""""""""""""""""""""""
 " SnipMate
@@ -314,11 +344,21 @@ map <leader>yr :YRShow<cr>
 """"""""""""""""""""""""""""""
 "let g:DoxygenToolkit_commentType = "C++"
 " author info
-let g:DoxygenToolkit_authorName = 'AAI GmbH'
-nmap <leader>dg :Dox<cr>
-nmap <leader>dga :DoxAuthor<cr>
-" license announcement
-nmap <leader>dgl :DoxLic<cr>
+let g:DoxygenToolkit_authorName = 'Mingyue Gao'
+"nmap <leader>dg :Dox<cr>
+"nmap <leader>dga :DoxAuthor<cr>
+"" license announcement
+"nmap <leader>dgl :DoxLic<cr>
+autocmd FileType c,cc,cpp map <buffer> <leader>dg :Dox<cr>
+autocmd FileType c,cc,cpp map <buffer> <leader>dga :DoxAuthor<cr>
+autocmd FileType c,cc,cpp map <buffer> <leader>dgl :DoxLic<cr>
+
+"""""""""""""""""""""""""""""""
+" vim-pydocstring
+""""""""""""""""""""""""""""""
+"autocmd FileType python map <buffer> <leader>dg :Pydocstring<cr>
+"autocmd FileType python map <buffer> <leader>dga :DoxAuthor<cr>
+"autocmd FileType python map <buffer> <leader>dgl :DoxLic<cr>
 
 """""""""""""""""""""""""""""""
 " air line setting
@@ -331,6 +371,7 @@ nmap <leader>dgl :DoxLic<cr>
 "let g:airline#extensions#tabline#left#alt#sep = '|'
 "let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
 "let g:airline#extensions#quickfix#location_text = 'Location'
+"let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 """"""""""""""""""""""""""""""""
 " vim color solarized setting
@@ -373,8 +414,8 @@ let g:vebugger_path_python='python'
 "set clipboard=unnamedplus
 vmap <C-c> "+y
 vmap <C-x> "+c
-vmap <C-v> c<ESC>"+p
-imap <C-v> <ESC>"+p
+vmap <C-v> c<ESC>"+P
+imap <C-v> <ESC>"+P
 
 " * Set j, k to move regardless of one line or two
 map j gj
