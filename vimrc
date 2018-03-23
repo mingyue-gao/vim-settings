@@ -124,7 +124,7 @@ autocmd FileType html set syntax=html
 set wildmenu
 
 " * Enable mouse in console
-set mouse=a
+"set mouse=a
 
 " * Show line number
 set nu
