@@ -233,9 +233,28 @@ Plugin 'idanarye/vim-vebugger'
 
 Plugin 'JamshedVesuna/vim-markdown-preview'
 
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plugin 'google/vim-glaive'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required by Vundle
+" the glaive#Install() should go after the "call vundle#end()"
+call glaive#Install()
+
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+
+" Settings for code-fmt
+Glaive codefmt plugin[mappings] clang_format_style='Google'
+augroup autoformat_settings
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType python AutoFormatBuffer autopep8
+augroup END
 
 "Enable filetype plugin
 filetype plugin on

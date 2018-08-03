@@ -101,7 +101,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-CURRENT_SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+CURRENT_SCRIPT_DIR="${HOME}/Github/vim-settings"
 
 if [ -f ${CURRENT_SCRIPT_DIR}/bash_aliases ]; then
     . ${CURRENT_SCRIPT_DIR}/bash_aliases
