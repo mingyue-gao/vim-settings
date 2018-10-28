@@ -433,8 +433,8 @@ let g:vebugger_path_python='python'
 "set clipboard=unnamedplus
 vmap <C-c> "+y
 vmap <C-x> "+c
-vmap <C-v> c<ESC>"+P
-imap <C-v> <ESC>"+P
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+p
 
 " * Set j, k to move regardless of one line or two
 map j gj
