@@ -91,6 +91,7 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias grepc='grep -i --include \*.h --include \*.cpp --include \*.hh --include \*.cc'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -121,3 +122,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Generate core dumps without limit of file size by default
+ulimit -c unlimited

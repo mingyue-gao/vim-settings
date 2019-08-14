@@ -85,13 +85,16 @@ set autoindent
 set smartindent
 
 " * C-style indeting
-set cindent
+" set cindent
 
 " * Wrap lines
 set wrap
 
 " - Favorite filetypes
 set ffs=unix,dos
+
+" - set makeprg
+set makeprg=make\ -j
 
 " - File type options
 "autocmd FileType python setlocal foldmethod=indent cinwords=if,elif,else,for,while,try,except,finally,def,class
@@ -247,14 +250,6 @@ call vundle#end()            " required by Vundle
 " the glaive#Install() should go after the "call vundle#end()"
 call glaive#Install()
 
-" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
-
-" Settings for code-fmt
-Glaive codefmt plugin[mappings] clang_format_style='Google'
-augroup autoformat_settings
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-  autocmd FileType python AutoFormatBuffer autopep8
-augroup END
 
 "Enable filetype plugin
 filetype plugin on
@@ -264,6 +259,16 @@ filetype indent on
 """""""""""""""""""""""""""""""""""""""""
 " You Complete Me setting
 """""""""""""""""""""""""""""""""""""""""
+
+" Settings for code-fmt
+" Glaive codefmt plugin[mappings] clang_format_style='Google'
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+Glaive codefmt plugin[mappings] clang_format_style='file'
+" augroup autoformat_settings
+"   autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+"   autocmd FileType python AutoFormatBuffer autopep8
+" augroup END
+map <leader>f :FormatCode <cr>
 
 let g:ycm_error_symbol='>>'
 let g:ycm_warning_symbol='>*'
