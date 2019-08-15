@@ -280,6 +280,7 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_always_populate_location_list = 1
 let g:ycm_open_loclist_on_ycm_diags = 1
+let g:ycm_max_diagnostics_to_display = 0
 " disable <TAB> select next item in the pop-up window
 let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<UP>']
