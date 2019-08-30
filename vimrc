@@ -264,10 +264,11 @@ filetype indent on
 " Glaive codefmt plugin[mappings] clang_format_style='Google'
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
 Glaive codefmt plugin[mappings] clang_format_style='file'
-" augroup autoformat_settings
-"   autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-"   autocmd FileType python AutoFormatBuffer autopep8
-" augroup END
+augroup autoformat_settings
+  " autocmd FileType c,cpp,proto,javascript clang-format
+  autocmd FileType python autopep8
+  " autocmd FileType html,css,sass,scss,less,json js-beautify
+augroup END
 map <leader>f :FormatCode <cr>
 
 let g:ycm_error_symbol='>>'
