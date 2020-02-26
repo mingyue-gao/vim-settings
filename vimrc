@@ -69,7 +69,7 @@ set nowb
 set noswapfile
 
 " - Text options
-set shiftwidth=4
+set shiftwidth=2
 
 " * replace tab to spaces
 set expandtab
@@ -234,7 +234,7 @@ Plugin 'xolox/vim-session'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'idanarye/vim-vebugger'
 
-Plugin 'JamshedVesuna/vim-markdown-preview'
+" Plugin 'JamshedVesuna/vim-markdown-preview'
 
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
@@ -266,7 +266,7 @@ filetype indent on
 Glaive codefmt plugin[mappings] clang_format_style='file'
 augroup autoformat_settings
   " autocmd FileType c,cpp,proto,javascript clang-format
-  autocmd FileType python autopep8
+  " autocmd FileType python autopep8
   " autocmd FileType html,css,sass,scss,less,json js-beautify
 augroup END
 map <leader>f :FormatCode <cr>
