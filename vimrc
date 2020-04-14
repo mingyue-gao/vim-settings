@@ -156,13 +156,13 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'ervandew/supertab'
 Plugin 'ycm-core/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
 
 " vim-airline: a fancy statu bar
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-
-Plugin 'msanders/snipmate.vim'
 
 Plugin 'vim-scripts/a.vim'
 
@@ -171,12 +171,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 
 Plugin 'altercation/vim-colors-solarized'
-
-" Plugin 'xolox/vim-misc'
-" Plugin 'xolox/vim-session'
-
-" Plugin 'Shougo/vimproc.vim'
-" Plugin 'idanarye/vim-vebugger'
 
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
@@ -214,6 +208,10 @@ Glaive codefmt plugin[mappings] clang_format_style='file'
 """""""""""""""""""""""""""""""""""""""""
 " You Complete Me setting
 """""""""""""""""""""""""""""""""""""""""
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 " let g:ycm_open_loclist_on_ycm_diags = 1
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
@@ -222,11 +220,14 @@ nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
 nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
 nnoremap <leader>ff :YcmCompleter FixIt<CR>
 
-""""""""""""""""""""""""""""""
-" SnipMate
-""""""""""""""""""""""""""""""
-let g:snips_author = 'Mingyue Gao'
-let g:snippets_dir = '~/.vim/mydata/snipmate'
+"""""""""""""""""""""""""""""""""""""""""
+" UltiSnips setting
+"""""""""""""""""""""""""""""""""""""""""
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsSnippetDirectories = ['~/.vim/mydata/UltiSnips']
 
 """"""""""""""""""""""""""""""
 " NERDTree setting
