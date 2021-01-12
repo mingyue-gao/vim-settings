@@ -102,14 +102,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-CURRENT_SCRIPT_DIR="${HOME}/Github/vim-settings"
-
-if [ -f ${CURRENT_SCRIPT_DIR}/bash_aliases ]; then
-    . ${CURRENT_SCRIPT_DIR}/bash_aliases
-fi
-
-if [ -f ${CURRENT_SCRIPT_DIR}/bash_aliases_aai ]; then
-    . ${CURRENT_SCRIPT_DIR}/bash_aliases_aai
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
