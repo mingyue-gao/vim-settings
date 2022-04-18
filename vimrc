@@ -68,6 +68,9 @@ set nobackup
 set nowb
 set noswapfile
 
+" Showing mode [INSERT] on status line is unnecessary because of lightline.vim
+set noshowmode
+
 " - Text options
 set shiftwidth=2
 
@@ -160,9 +163,9 @@ Plugin 'ervandew/supertab'
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 
-" vim-airline: a fancy statu bar
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+" status bar
+Plugin 'itchyny/lightline.vim'
+
 
 Plugin 'vim-scripts/a.vim'
 
@@ -170,7 +173,7 @@ Plugin 'scrooloose/nerdtree'
 
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'flazz/vim-colorschemes'
 
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
@@ -179,6 +182,7 @@ Plugin 'google/vim-codefmt'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
 Plugin 'google/vim-glaive'
+
 
 
 " All of your Plugins must be added before the following line
@@ -191,6 +195,13 @@ call glaive#Install()
 filetype plugin on
 filetype indent on
 "filetype plugin indent on    " required by Vundle
+
+"""""""""""""""""""""""""""""""""""""""""
+" Lightline
+"""""""""""""""""""""""""""""""""""""""""
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ }
 
 """""""""""""""""""""""""""""""""""""""""
 " Codefmt setting
@@ -267,9 +278,12 @@ autocmd FileType c,cc,cpp map <buffer> <leader>dgl :DoxLic<cr>
 """"""""""""""""""""""""""""""""
 " vim color solarized setting
 """"""""""""""""""""""""""""""""
-set background=dark
-let g:solarized_termtrans=1
-colorscheme solarized
+" Setting for E-ink screen
+" Use following for dark theme with normal LED screens
+" - set background=dark
+" - colorscheme solarized
+set background=light
+colorscheme eink
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle and plugins configuration END
