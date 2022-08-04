@@ -8,15 +8,12 @@
 " Version:     0.5
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let $VIMHOME=fnamemodify('~/.vim', ':p:h')
+let $VIMDATA=expand($VIMHOME) . '/mydata'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Predefined global settings
 " Could be overwritten by plugins
-"
-" - General settings
-"
-" * Get out of VI's compatible mode (required by Vundle)
-set nocompatible
-
 " * Syntax on
 syntax on
 
@@ -24,14 +21,57 @@ syntax on
 let mapleader = ","
 let g:mapleader = ","
 
-" * Set to auto read when a file is changed from the outside
-set autoread
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General Options
+"
+" * Get out of VI's compatible mode (required by Vundle)
+set nocompatible
 
-" * Sets how many lines of history VIM har to remember
-set history=256
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Indention Options
+" 
+" - Text options
+set shiftwidth=4
+
+" * replace tab to spaces
+set expandtab
+
+" * in front of a line inserts blanks accordinng to 'shiftwidth'
+set smarttab
+
+" - Indent options
+" * Auto indent
+set autoindent
+
+" * Smart indent
+set smartindent
 
 " * Paste toggle - when pasting something in, don't indent.
 set pastetoggle=<F3>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Search Options
+" 
+" * Ignore case when searching
+set ignorecase
+
+" * Incremental search that shows partial matches
+set incsearch
+
+" * Highlight search things
+set hlsearch
+
+" * Automatically switch search to case-sensitive when search query contains an uppercase letter
+set smartcase
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Text Rendering Options
+" 
+" * Showing mode [INSERT] on status line is unnecessary because of lightline.vim
+set noshowmode
+
+" * Wrap lines
+set wrap
 
 " * Set backspace
 set backspace=eol,start,indent
@@ -39,14 +79,43 @@ set backspace=eol,start,indent
 " * set whichwrap+=<,>,h,l
 set whichwrap+=<,>
 
-" * Ignore case when searching
-set ignorecase
+" * encoding
+set encoding=utf-8
+set termencoding=utf-8
+set fileencoding=utf-8
 
-" * Include search
-set incsearch
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" User Interface Options
+" 
+" * Show line number
+set number
 
-" * Highlight search things
-set hlsearch
+" * The commandbar is 2 high
+set cmdheight=2
+
+" * Always show the statusline
+set laststatus=2
+
+" * Display command line’s tab complete options as a menu.
+set wildmenu
+
+" * Highlight the line currently under cursor
+set cursorline
+
+" * Enable mouse in console
+"set mouse=a
+
+" taked away
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Miscellaneous Options
+" * Enable spellchecking
+set spell
+
+" * Set to auto read when a file is changed from the outside
+set autoread
+
+" * Sets how many lines of history VIM has to remember
+set history=256
 
 " * Set magic on
 set magic
@@ -68,28 +137,6 @@ set nobackup
 set nowb
 set noswapfile
 
-" Showing mode [INSERT] on status line is unnecessary because of lightline.vim
-set noshowmode
-
-" - Text options
-set shiftwidth=2
-
-" * replace tab to spaces
-set expandtab
-
-" * in front of a line inserts blanks accordinng to 'shiftwidth'
-set smarttab
-
-" - Indent options
-" * Auto indent
-set autoindent
-
-" * Smart indent
-set smartindent
-
-" * Wrap lines
-set wrap
-
 " - Favorite filetypes
 set ffs=unix,dos
 
@@ -103,47 +150,31 @@ autocmd FileType vim set nofen
 " * C/C++
 autocmd FileType c,cc,cpp,xml,txt map <buffer> <leader><space> :make<cr>
 
-" - How VIM looks
-" * Turn on WiLd menu for :find
-set wildmenu
-
-" * Enable mouse in console
-"set mouse=a
-
-" * Show line number
-set nu
-
-" * The commandbar is 2 high
-set cmdheight=2
-
-" * Always show the statusline
-set laststatus=2
-
 " - multi-encoding setting
 " * Chinese
-if has("multi_byte")
-  "set bomb
-  set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,sjis,euc-kr,ucs-2le,latin1
-  " CJK environment detection and corresponding setting
-  if v:lang =~ "^zh_CN"
-    " Use cp936 to support GBK, euc-cn == gb2312
-    set encoding=chinese
-    set termencoding=chinese
-    set fileencoding=chinese
-  elseif v:lang =~ "^zh_TW"
-    " cp950, big5 or euc-tw
-    " Are they equal to each other?
-    set encoding=taiwan
-    set termencoding=taiwan
-    set fileencoding=taiwan
-  endif
-  " Detect UTF-8 locale, and replace CJK setting if needed
-  if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
-    set encoding=utf-8
-    set termencoding=utf-8
-    set fileencoding=utf-8
-  endif
-endif
+" if has("multi_byte")
+"   "set bomb
+"   set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,sjis,euc-kr,ucs-2le,latin1
+"   " CJK environment detection and corresponding setting
+"   if v:lang =~ "^zh_CN"
+"     " Use cp936 to support GBK, euc-cn == gb2312
+"     set encoding=chinese
+"     set termencoding=chinese
+"     set fileencoding=chinese
+"   elseif v:lang =~ "^zh_TW"
+"     " cp950, big5 or euc-tw
+"     " Are they equal to each other?
+"     set encoding=taiwan
+"     set termencoding=taiwan
+"     set fileencoding=taiwan
+"   endif
+"   " Detect UTF-8 locale, and replace CJK setting if needed
+"   if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
+"     set encoding=utf-8
+"     set termencoding=utf-8
+"     set fileencoding=utf-8
+"   endif
+" endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle and plugins configuration BEGIN
@@ -159,13 +190,12 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'ervandew/supertab'
+" Plugin 'ervandew/supertab'
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 
 " status bar
 Plugin 'itchyny/lightline.vim'
-
 
 Plugin 'vim-scripts/a.vim'
 
@@ -184,17 +214,15 @@ Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
 
 
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required by Vundle
 " the glaive#Install() should go after the "call vundle#end()"
 call glaive#Install()
 
 
-"Enable filetype plugin
+"Enable filetype plugin, required by Vundle
 filetype plugin on
 filetype indent on
-"filetype plugin indent on    " required by Vundle
 
 """""""""""""""""""""""""""""""""""""""""
 " Lightline
@@ -208,7 +236,7 @@ let g:lightline = {
 """""""""""""""""""""""""""""""""""""""""
 " Glaive codefmt plugin[mappings] clang_format_style='Google'
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
-Glaive codefmt plugin[mappings] clang_format_style='file'
+Glaive codefmt clang_format_style=`'file:' . $VIMDATA .'/_clang-format'`
 " augroup autoformat_settings
 "   " autocmd FileType c,cpp,proto,javascript clang-format
 "   " autocmd FileType python autopep8
@@ -280,10 +308,10 @@ autocmd FileType c,cc,cpp map <buffer> <leader>dgl :DoxLic<cr>
 """"""""""""""""""""""""""""""""
 " Setting for E-ink screen
 " Use following for dark theme with normal LED screens
-" - set background=dark
-" - colorscheme solarized
-set background=light
-colorscheme eink
+set background=dark
+colorscheme solarized
+" set background=light
+" colorscheme eink
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle and plugins configuration END
