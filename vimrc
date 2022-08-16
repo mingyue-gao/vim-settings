@@ -109,7 +109,7 @@ set cursorline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Miscellaneous Options
 " * Enable spellchecking
-set spell
+" set spell
 
 " * Set to auto read when a file is changed from the outside
 set autoread
@@ -176,48 +176,76 @@ autocmd FileType c,cc,cpp,xml,txt map <buffer> <leader><space> :make<cr>
 "   endif
 " endif
 
+call plug#begin()
+
+Plug 'ycm-core/YouCompleteMe'
+Plug 'SirVer/ultisnips'
+
+" status bar
+Plug 'itchyny/lightline.vim'
+
+Plug 'vim-scripts/a.vim'
+
+Plug 'scrooloose/nerdtree'
+
+Plug 'vim-scripts/DoxygenToolkit.vim'
+
+Plug 'flazz/vim-colorschemes'
+
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plug 'google/vim-glaive'
+
+call plug#end()
+" the glaive#Install() should go after the "call vundle#end()"
+call glaive#Install()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle and plugins configuration BEGIN
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype off            " required by Vundle
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" Plugin 'ervandew/supertab'
-Plugin 'ycm-core/YouCompleteMe'
-Plugin 'SirVer/ultisnips'
-
-" status bar
-Plugin 'itchyny/lightline.vim'
-
-Plugin 'vim-scripts/a.vim'
-
-Plugin 'scrooloose/nerdtree'
-
-Plugin 'vim-scripts/DoxygenToolkit.vim'
-
-Plugin 'flazz/vim-colorschemes'
-
-" Add maktaba and codefmt to the runtimepath.
-" (The latter must be installed before it can be used.)
-Plugin 'google/vim-maktaba'
-Plugin 'google/vim-codefmt'
-" Also add Glaive, which is used to configure codefmt's maktaba flags. See
-" `:help :Glaive` for usage.
-Plugin 'google/vim-glaive'
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required by Vundle
-" the glaive#Install() should go after the "call vundle#end()"
-call glaive#Install()
+" " set the runtime path to include Vundle and initialize
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" " alternatively, pass a path where Vundle should install plugins
+" "call vundle#begin('~/some/path/here')
+" 
+" " let Vundle manage Vundle, required
+" Plugin 'VundleVim/Vundle.vim'
+" 
+" " Plugin 'ervandew/supertab'
+" Plugin 'ycm-core/YouCompleteMe'
+" Plugin 'SirVer/ultisnips'
+" 
+" " status bar
+" Plugin 'itchyny/lightline.vim'
+" 
+" Plugin 'vim-scripts/a.vim'
+" 
+" Plugin 'scrooloose/nerdtree'
+" 
+" Plugin 'vim-scripts/DoxygenToolkit.vim'
+" 
+" Plugin 'flazz/vim-colorschemes'
+" 
+" " Add maktaba and codefmt to the runtimepath.
+" " (The latter must be installed before it can be used.)
+" Plugin 'google/vim-maktaba'
+" Plugin 'google/vim-codefmt'
+" " Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" " `:help :Glaive` for usage.
+" Plugin 'google/vim-glaive'
+" 
+" 
+" " All of your Plugins must be added before the following line
+" call vundle#end()            " required by Vundle
+" " the glaive#Install() should go after the "call vundle#end()"
+" call glaive#Install()
 
 
 "Enable filetype plugin, required by Vundle
@@ -308,10 +336,12 @@ autocmd FileType c,cc,cpp map <buffer> <leader>dgl :DoxLic<cr>
 """"""""""""""""""""""""""""""""
 " Setting for E-ink screen
 " Use following for dark theme with normal LED screens
-set background=dark
-colorscheme solarized
+" set background=dark
+" colorscheme solarized
 " set background=light
 " colorscheme eink
+" colorscheme Monokai
+colorscheme afterglow
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle and plugins configuration END
