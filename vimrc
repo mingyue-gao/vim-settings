@@ -105,11 +105,14 @@ set cursorline
 " * Enable mouse in console
 "set mouse=a
 
+" Open new tabs for navigation/quickfix
+set switchbuf=usetab
+
 " taked away
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Miscellaneous Options
 " * Enable spellchecking
-set spell
+" set spell
 
 " * Set to auto read when a file is changed from the outside
 set autoread
@@ -148,7 +151,8 @@ set makeprg=make\ -j
 autocmd FileType vim set nofen
 
 " * C/C++
-autocmd FileType c,cc,cpp,xml,txt map <buffer> <leader><space> :make<cr>
+" autocmd FileType c,cc,cpp,xml,txt map <buffer> <leader><space> :make<cr>
+autocmd FileType c,cc,cpp,xml,txt map <buffer> <leader><space> :AsyncRun make -j8<cr>
 
 " - multi-encoding setting
 " * Chinese
@@ -176,53 +180,77 @@ autocmd FileType c,cc,cpp,xml,txt map <buffer> <leader><space> :make<cr>
 "   endif
 " endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle and plugins configuration BEGIN
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-filetype off            " required by Vundle
+call plug#begin()
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+Plug 'skywind3000/asyncrun.vim'
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Static code analysis
+Plug 'dense-analysis/ale'
 
-" Plugin 'ervandew/supertab'
-Plugin 'ycm-core/YouCompleteMe'
-Plugin 'SirVer/ultisnips'
+Plug 'ycm-core/YouCompleteMe'
+
+Plug 'Shougo/echodoc.vim'
+
+Plug 'mhinz/vim-signify'
+
+Plug 'SirVer/ultisnips'
 
 " status bar
-Plugin 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 
-Plugin 'vim-scripts/a.vim'
+Plug 'vim-scripts/a.vim'
 
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
-Plugin 'vim-scripts/DoxygenToolkit.vim'
+Plug 'vim-scripts/DoxygenToolkit.vim'
 
-Plugin 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
-Plugin 'google/vim-maktaba'
-Plugin 'google/vim-codefmt'
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
-Plugin 'google/vim-glaive'
+Plug 'google/vim-glaive'
 
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required by Vundle
+call plug#end()
 " the glaive#Install() should go after the "call vundle#end()"
 call glaive#Install()
-
 
 "Enable filetype plugin, required by Vundle
 filetype plugin on
 filetype indent on
+
+"""""""""""""""""""""""""""""""""""""""""
+" AsyncRun
+"""""""""""""""""""""""""""""""""""""""""
+let g:asyncrun_open = 6
+
+"""""""""""""""""""""""""""""""""""""""""
+" ALE
+"""""""""""""""""""""""""""""""""""""""""
+let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
+
+let g:ale_sign_error = "\ue009\ue009"
+hi! clear SpellBad
+hi! clear SpellCap
+hi! clear SpellRare
+hi! SpellBad gui=undercurl guisp=red
+hi! SpellCap gui=undercurl guisp=blue
+hi! SpellRare gui=undercurl guisp=magenta
 
 """""""""""""""""""""""""""""""""""""""""
 " Lightline
@@ -236,6 +264,7 @@ let g:lightline = {
 """""""""""""""""""""""""""""""""""""""""
 " Glaive codefmt plugin[mappings] clang_format_style='Google'
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+Glaive codefmt plugin[mappings]
 Glaive codefmt clang_format_style=`'file:' . $VIMDATA .'/_clang-format'`
 " augroup autoformat_settings
 "   " autocmd FileType c,cpp,proto,javascript clang-format
@@ -251,6 +280,7 @@ Glaive codefmt clang_format_style=`'file:' . $VIMDATA .'/_clang-format'`
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:ycm_goto_buffer_command = 'new-tab'
 " let g:ycm_open_loclist_on_ycm_diags = 1
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
