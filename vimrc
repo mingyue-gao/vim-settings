@@ -8,8 +8,8 @@
 " Version:     0.5
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let $VIMHOME=fnamemodify('~/.vim', ':p:h')
-let $VIMDATA=expand($VIMHOME) . '/mydata'
+" let $VIMHOME=fnamemodify('~/.vim', ':p:h')
+" let $VIMDATA=expand($VIMHOME) . '/mydata'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Predefined global settings
@@ -153,52 +153,29 @@ set makeprg=make\ -j
 autocmd FileType vim set nofen
 
 " * C/C++
-" autocmd FileType c,cc,cpp,xml,txt map <buffer> <leader><space> :make<cr>
-autocmd FileType c,cc,cpp,xml,txt map <buffer> <leader><space> :AsyncRun make -j8<cr>
-
-" - multi-encoding setting
-" * Chinese
-" if has("multi_byte")
-"   "set bomb
-"   set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,sjis,euc-kr,ucs-2le,latin1
-"   " CJK environment detection and corresponding setting
-"   if v:lang =~ "^zh_CN"
-"     " Use cp936 to support GBK, euc-cn == gb2312
-"     set encoding=chinese
-"     set termencoding=chinese
-"     set fileencoding=chinese
-"   elseif v:lang =~ "^zh_TW"
-"     " cp950, big5 or euc-tw
-"     " Are they equal to each other?
-"     set encoding=taiwan
-"     set termencoding=taiwan
-"     set fileencoding=taiwan
-"   endif
-"   " Detect UTF-8 locale, and replace CJK setting if needed
-"   if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
-"     set encoding=utf-8
-"     set termencoding=utf-8
-"     set fileencoding=utf-8
-"   endif
-" endif
+autocmd FileType c,cc,cpp,cmake,h,hh,hpp map <buffer> <leader><space> :AsyncRun ninja<cr>
 
 call plug#begin()
 
 Plug 'skywind3000/asyncrun.vim'
 
 " Static code analysis
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'Shougo/echodoc.vim'
 
+" git signs, e.g. added, modified, etc.
 Plug 'mhinz/vim-signify'
 
 Plug 'SirVer/ultisnips'
 
 " status bar
 " Plug 'itchyny/lightline.vim'
+" Plug 'liuchengxu/eleline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -233,51 +210,29 @@ filetype indent on
 """""""""""""""""""""""""""""""""""""""""
 let g:asyncrun_open = 6
 
-"""""""""""""""""""""""""""""""""""""""""
-" ALE
-"""""""""""""""""""""""""""""""""""""""""
-let g:ale_linters_explicit = 1
-let g:ale_completion_delay = 500
-let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:airline#extensions#ale#enabled = 1
-
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++20'
-let g:ale_c_cppcheck_options = ''
-let g:ale_cpp_cppcheck_options = ''
-
-let g:ale_sign_error = "\ue009\ue009"
-hi! clear SpellBad
-hi! clear SpellCap
-hi! clear SpellRare
-hi! SpellBad gui=undercurl guisp=red
-hi! SpellCap gui=undercurl guisp=blue
-hi! SpellRare gui=undercurl guisp=magenta
-
-"""""""""""""""""""""""""""""""""""""""""
-" Airline
-"""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme='simple'
-
-"""""""""""""""""""""""""""""""""""""""""
-" Lightline
-"""""""""""""""""""""""""""""""""""""""""
-" let g:lightline = {
-"       \ 'colorscheme': 'default',
-"       \ }
-" let g:lightline = {
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ],
-"       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'gitbranch': 'FugitiveHead'
-"       \ },
-"       \ }
+" """""""""""""""""""""""""""""""""""""""""
+" " ALE
+" """""""""""""""""""""""""""""""""""""""""
+" let g:ale_linters_explicit = 1
+" let g:ale_completion_delay = 500
+" let g:ale_echo_delay = 20
+" let g:ale_lint_delay = 500
+" let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+" let g:ale_lint_on_text_changed = 'normal'
+" let g:ale_lint_on_insert_leave = 1
+" 
+" let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+" let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++20'
+" let g:ale_c_cppcheck_options = ''
+" let g:ale_cpp_cppcheck_options = ''
+" 
+" let g:ale_sign_error = "\ue009\ue009"
+" hi! clear SpellBad
+" hi! clear SpellCap
+" hi! clear SpellRare
+" hi! SpellBad gui=undercurl guisp=red
+" hi! SpellCap gui=undercurl guisp=blue
+" hi! SpellRare gui=undercurl guisp=magenta
 
 """""""""""""""""""""""""""""""""""""""""
 " Codefmt setting
@@ -296,26 +251,103 @@ Glaive codefmt plugin[mappings]
 """""""""""""""""""""""""""""""""""""""""
 " You Complete Me setting
 """""""""""""""""""""""""""""""""""""""""
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:ycm_goto_buffer_command = 'new-tab'
-" let g:ycm_open_loclist_on_ycm_diags = 1
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gg :YcmCompleter GoTo<CR>
-nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
-nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <leader>ff :YcmCompleter FixIt<CR>
+" " make YCM compatible with UltiSnips (using supertab)
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:SuperTabDefaultCompletionType = '<C-n>'
+" let g:ycm_goto_buffer_command = 'new-tab'
+" " let g:ycm_open_loclist_on_ycm_diags = 1
+" nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+" nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
+" nnoremap <leader>gg :YcmCompleter GoTo<CR>
+" nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
+" nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+" nnoremap <leader>ff :YcmCompleter FixIt<CR>
+
+"""""""""""""""""""""""""""""""""""""""""
+" coc.vim
+"""""""""""""""""""""""""""""""""""""""""
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
+" delays and poor user experience
+set updatetime=300
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostcs appear/become resolved
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() <CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nmap <silent> <leader>gg <Plug>(coc-definition)
+nmap <silent> <leader>gy <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+
+"""""""""""""""""""""""""""""""""""""""""
+" Airline
+"""""""""""""""""""""""""""""""""""""""""
+let g:airline_theme='simple'
+" let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#coc#show_coc_status = 1
 
 """""""""""""""""""""""""""""""""""""""""
 " UltiSnips setting
 """""""""""""""""""""""""""""""""""""""""
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsExpandTrigger = "<c-u>"
+" let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:UltiSnipsSnippetDirectories = ['~/.vim/mydata/UltiSnips']
 
 """"""""""""""""""""""""""""""
