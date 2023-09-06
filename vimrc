@@ -185,10 +185,6 @@ Plug 'scrooloose/nerdtree'
 
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
-Plug 'flazz/vim-colorschemes'
-
-Plug 'tpope/vim-fugitive'
-
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
 Plug 'google/vim-maktaba'
@@ -207,6 +203,39 @@ filetype indent on
 
 """""""""""""""""""""""""""""""""""""""""
 " AsyncRun
+<<<<<<< HEAD
+=======
+"""""""""""""""""""""""""""""""""""""""""
+let g:asyncrun_open = 6
+
+"""""""""""""""""""""""""""""""""""""""""
+" ALE
+"""""""""""""""""""""""""""""""""""""""""
+let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
+
+let g:ale_sign_error = "\ue009\ue009"
+hi! clear SpellBad
+hi! clear SpellCap
+hi! clear SpellRare
+hi! SpellBad gui=undercurl guisp=red
+hi! SpellCap gui=undercurl guisp=blue
+hi! SpellRare gui=undercurl guisp=magenta
+
+"""""""""""""""""""""""""""""""""""""""""
+" Lightline
+>>>>>>> 42f9147c900c71daa9b9ed36257225718bb40c71
 """""""""""""""""""""""""""""""""""""""""
 let g:asyncrun_open = 6
 
@@ -240,7 +269,7 @@ let g:asyncrun_open = 6
 " Glaive codefmt plugin[mappings] clang_format_style='Google'
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
 Glaive codefmt plugin[mappings]
-" Glaive codefmt clang_format_style=`'file:' . $VIMDATA .'/_clang-format'`
+Glaive codefmt clang_format_style=`'file:' . $VIMDATA .'/_clang-format'`
 " augroup autoformat_settings
 "   " autocmd FileType c,cpp,proto,javascript clang-format
 "   " autocmd FileType python autopep8
@@ -251,6 +280,7 @@ Glaive codefmt plugin[mappings]
 """""""""""""""""""""""""""""""""""""""""
 " You Complete Me setting
 """""""""""""""""""""""""""""""""""""""""
+<<<<<<< HEAD
 " " make YCM compatible with UltiSnips (using supertab)
 " let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 " let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
@@ -340,6 +370,20 @@ let g:airline_theme='simple'
 " let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#coc#show_coc_status = 1
+=======
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:ycm_goto_buffer_command = 'new-tab'
+" let g:ycm_open_loclist_on_ycm_diags = 1
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gg :YcmCompleter GoTo<CR>
+nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
+nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+nnoremap <leader>ff :YcmCompleter FixIt<CR>
+>>>>>>> 42f9147c900c71daa9b9ed36257225718bb40c71
 
 """""""""""""""""""""""""""""""""""""""""
 " UltiSnips setting
