@@ -31,7 +31,7 @@ set notermguicolors
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Indention Options
-" 
+"
 " - Text options
 set shiftwidth=4
 
@@ -53,7 +53,7 @@ set pastetoggle=<F3>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Search Options
-" 
+"
 " * Ignore case when searching
 set ignorecase
 
@@ -68,7 +68,7 @@ set smartcase
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text Rendering Options
-" 
+"
 " * Showing mode [INSERT] on status line is unnecessary because of lightline.vim
 set noshowmode
 
@@ -88,7 +88,7 @@ set fileencoding=utf-8
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " User Interface Options
-" 
+"
 " * Show line number
 set number
 
@@ -159,11 +159,6 @@ call plug#begin()
 
 Plug 'skywind3000/asyncrun.vim'
 
-" Static code analysis
-" Plug 'dense-analysis/ale'
-
-" Plug 'ycm-core/YouCompleteMe'
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'Shougo/echodoc.vim'
@@ -174,8 +169,6 @@ Plug 'mhinz/vim-signify'
 Plug 'SirVer/ultisnips'
 
 " status bar
-" Plug 'itchyny/lightline.vim'
-" Plug 'liuchengxu/eleline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -184,6 +177,10 @@ Plug 'vim-scripts/a.vim'
 Plug 'scrooloose/nerdtree'
 
 Plug 'vim-scripts/DoxygenToolkit.vim'
+
+Plug 'flazz/vim-colorschemes'
+
+Plug 'tpope/vim-fugitive'
 
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
@@ -203,65 +200,8 @@ filetype indent on
 
 """""""""""""""""""""""""""""""""""""""""
 " AsyncRun
-<<<<<<< HEAD
-=======
 """""""""""""""""""""""""""""""""""""""""
 let g:asyncrun_open = 6
-
-"""""""""""""""""""""""""""""""""""""""""
-" ALE
-"""""""""""""""""""""""""""""""""""""""""
-let g:ale_linters_explicit = 1
-let g:ale_completion_delay = 500
-let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-let g:airline#extensions#ale#enabled = 1
-
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-let g:ale_c_cppcheck_options = ''
-let g:ale_cpp_cppcheck_options = ''
-
-let g:ale_sign_error = "\ue009\ue009"
-hi! clear SpellBad
-hi! clear SpellCap
-hi! clear SpellRare
-hi! SpellBad gui=undercurl guisp=red
-hi! SpellCap gui=undercurl guisp=blue
-hi! SpellRare gui=undercurl guisp=magenta
-
-"""""""""""""""""""""""""""""""""""""""""
-" Lightline
->>>>>>> 42f9147c900c71daa9b9ed36257225718bb40c71
-"""""""""""""""""""""""""""""""""""""""""
-let g:asyncrun_open = 6
-
-" """""""""""""""""""""""""""""""""""""""""
-" " ALE
-" """""""""""""""""""""""""""""""""""""""""
-" let g:ale_linters_explicit = 1
-" let g:ale_completion_delay = 500
-" let g:ale_echo_delay = 20
-" let g:ale_lint_delay = 500
-" let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-" let g:ale_lint_on_text_changed = 'normal'
-" let g:ale_lint_on_insert_leave = 1
-" 
-" let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-" let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++20'
-" let g:ale_c_cppcheck_options = ''
-" let g:ale_cpp_cppcheck_options = ''
-" 
-" let g:ale_sign_error = "\ue009\ue009"
-" hi! clear SpellBad
-" hi! clear SpellCap
-" hi! clear SpellRare
-" hi! SpellBad gui=undercurl guisp=red
-" hi! SpellCap gui=undercurl guisp=blue
-" hi! SpellRare gui=undercurl guisp=magenta
 
 """""""""""""""""""""""""""""""""""""""""
 " Codefmt setting
@@ -269,30 +209,12 @@ let g:asyncrun_open = 6
 " Glaive codefmt plugin[mappings] clang_format_style='Google'
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
 Glaive codefmt plugin[mappings]
-Glaive codefmt clang_format_style=`'file:' . $VIMDATA .'/_clang-format'`
+" Glaive codefmt clang_format_style=`'file:' . $VIMDATA .'/_clang-format'`
 " augroup autoformat_settings
 "   " autocmd FileType c,cpp,proto,javascript clang-format
 "   " autocmd FileType python autopep8
 "   " autocmd FileType html,css,sass,scss,less,json js-beautify
 " augroup END
-
-
-"""""""""""""""""""""""""""""""""""""""""
-" You Complete Me setting
-"""""""""""""""""""""""""""""""""""""""""
-<<<<<<< HEAD
-" " make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-" let g:ycm_goto_buffer_command = 'new-tab'
-" " let g:ycm_open_loclist_on_ycm_diags = 1
-" nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-" nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
-" nnoremap <leader>gg :YcmCompleter GoTo<CR>
-" nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
-" nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
-" nnoremap <leader>ff :YcmCompleter FixIt<CR>
 
 """""""""""""""""""""""""""""""""""""""""
 " coc.vim
@@ -370,20 +292,6 @@ let g:airline_theme='simple'
 " let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#coc#show_coc_status = 1
-=======
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:ycm_goto_buffer_command = 'new-tab'
-" let g:ycm_open_loclist_on_ycm_diags = 1
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gg :YcmCompleter GoTo<CR>
-nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
-nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <leader>ff :YcmCompleter FixIt<CR>
->>>>>>> 42f9147c900c71daa9b9ed36257225718bb40c71
 
 """""""""""""""""""""""""""""""""""""""""
 " UltiSnips setting
@@ -443,7 +351,7 @@ hi! clear Pmenu
 hi! Pmenu term=bold,reverse cterm=bold ctermfg=5 ctermbg=0 guibg=Magenta
 hi! clear StatusLine
 hi! StatusLine term=bold,reverse cterm=bold ctermfg=6 ctermbg=0 gui=bold,reverse
-hi! clear PmenuThumb     
+hi! clear PmenuThumb
 hi! PmenuThumb term=bold,reverse cterm=bold ctermfg=4 ctermbg=0 guibg=White
 "  DONE - Settings for compMobaXterm
 
