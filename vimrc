@@ -24,14 +24,12 @@ let g:mapleader = ","
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Options
 "
-" * Get out of VI's compatible mode (required by Vundle)
+" * Get out of VI's compatible mode
 set nocompatible
-
-set notermguicolors
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Indention Options
-"
+" 
 " - Text options
 set shiftwidth=4
 
@@ -53,7 +51,7 @@ set pastetoggle=<F3>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Search Options
-"
+" 
 " * Ignore case when searching
 set ignorecase
 
@@ -68,9 +66,9 @@ set smartcase
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text Rendering Options
-"
+" 
 " * Showing mode [INSERT] on status line is unnecessary because of lightline.vim
-set noshowmode
+" set noshowmode
 
 " * Wrap lines
 set wrap
@@ -88,7 +86,7 @@ set fileencoding=utf-8
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " User Interface Options
-"
+" 
 " * Show line number
 set number
 
@@ -152,69 +150,68 @@ set makeprg=make\ -j
 " * VIM
 autocmd FileType vim set nofen
 
-" * C/C++
-autocmd FileType c,cc,cpp,cmake,h,hh,hpp map <buffer> <leader><space> :AsyncRun ninja<cr>
-
 call plug#begin()
-
-Plug 'skywind3000/asyncrun.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'Shougo/echodoc.vim'
+Plug 'skywind3000/asyncrun.vim'
 
-" git signs, e.g. added, modified, etc.
+" Miscs for Git
+" Use Git in vim commandbar
+Plug 'tpope/vim-fugitive'
+" Git signs for lines, e.g. added (+), modified(!), etc.
 Plug 'mhinz/vim-signify'
 
-Plug 'SirVer/ultisnips'
+" Miscs for language support
+Plug 'rust-lang/rust.vim'
 
-" status bar
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
+" Miscs for navigation
 Plug 'vim-scripts/a.vim'
-
 Plug 'scrooloose/nerdtree'
 
+" Miscs for macros
+Plug 'SirVer/ultisnips'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 
+" Miscs for syntax color
+" Syntax for TOML
+Plug 'cespare/vim-toml', { 'branch': 'main'}
+
+" Miscs for visualizations
+" status bar and color schemes
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" vim color schemes
 Plug 'flazz/vim-colorschemes'
 
-Plug 'tpope/vim-fugitive'
+" Visual debugger
+" Plug 'puremourning/vimspector'
 
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
+" Plug 'google/vim-maktaba'
+" Plug 'google/vim-codefmt'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
-Plug 'google/vim-glaive'
+" Plug 'google/vim-glaive'
 
 call plug#end()
 " the glaive#Install() should go after the "call vundle#end()"
-call glaive#Install()
-
-"Enable filetype plugin, required by Vundle
-filetype plugin on
-filetype indent on
+" call glaive#Install()
 
 """""""""""""""""""""""""""""""""""""""""
 " AsyncRun
 """""""""""""""""""""""""""""""""""""""""
 let g:asyncrun_open = 6
 
-"""""""""""""""""""""""""""""""""""""""""
-" Codefmt setting
-"""""""""""""""""""""""""""""""""""""""""
-" Glaive codefmt plugin[mappings] clang_format_style='Google'
-" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
-Glaive codefmt plugin[mappings]
-" Glaive codefmt clang_format_style=`'file:' . $VIMDATA .'/_clang-format'`
-" augroup autoformat_settings
-"   " autocmd FileType c,cpp,proto,javascript clang-format
-"   " autocmd FileType python autopep8
-"   " autocmd FileType html,css,sass,scss,less,json js-beautify
-" augroup END
+" * C/C++
+autocmd FileType c,cc,cpp,cmake,h,hh,hpp map <buffer> <leader><space> :AsyncRun ninja<cr>
+
+" * Rust
+autocmd FileType rust map <buffer> <leader><space> :AsyncRun cargo build<cr>
+autocmd FileType rust map <buffer> <leader>t :AsyncRun cargo test<cr>
+autocmd FileType rust map <buffer> <leader>l :AsyncRun cargo clippy --fix<cr>
+autocmd FileType rust map <buffer> <leader>c :AsyncRun cargo clean<cr>
 
 """""""""""""""""""""""""""""""""""""""""
 " coc.vim
@@ -286,10 +283,15 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 """""""""""""""""""""""""""""""""""""""""
+" rustfmt
+"""""""""""""""""""""""""""""""""""""""""
+let g:rustfmt_autosave = 1 
+
+"""""""""""""""""""""""""""""""""""""""""
 " Airline
 """""""""""""""""""""""""""""""""""""""""
-let g:airline_theme='simple'
-" let g:airline#extensions#ale#enabled = 1
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
 let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#coc#show_coc_status = 1
 
@@ -340,28 +342,31 @@ autocmd FileType c,cc,cpp map <buffer> <leader>dgl :DoxLic<cr>
 """"""""""""""""""""""""""""""""
 " vim color solarized setting
 """"""""""""""""""""""""""""""""
-let g:solarized_termtrans=1 " work with MobaXterm
+" Required by solarized8
+set termguicolors
+syntax enable
 set background=dark
-colorscheme solarized
-" colorscheme Monokai
-" colorscheme afterglow
-
-"  Settings for compMobaXterm
-hi! clear Pmenu
-hi! Pmenu term=bold,reverse cterm=bold ctermfg=5 ctermbg=0 guibg=Magenta
-hi! clear StatusLine
-hi! StatusLine term=bold,reverse cterm=bold ctermfg=6 ctermbg=0 gui=bold,reverse
-hi! clear PmenuThumb
-hi! PmenuThumb term=bold,reverse cterm=bold ctermfg=4 ctermbg=0 guibg=White
-"  DONE - Settings for compMobaXterm
-
+colorscheme solarized8_dark_flat
 " Setting for E-ink screen
 " Use following for dark theme with normal LED screens
 " set background=light
 " colorscheme eink
 
+"""""""""""""""""""""""""""""""""""""""""
+" Codefmt setting
+"""""""""""""""""""""""""""""""""""""""""
+" Glaive codefmt plugin[mappings] clang_format_style='Google'
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+" Glaive codefmt plugin[mappings]
+" Glaive codefmt clang_format_style=`'file:' . $VIMDATA .'/_clang-format'`
+" augroup autoformat_settings
+"   " autocmd FileType c,cpp,proto,javascript clang-format
+"   " autocmd FileType python autopep8
+"   " autocmd FileType html,css,sass,scss,less,json js-beautify
+" augroup END
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle and plugins configuration END
+" plugins configuration END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
